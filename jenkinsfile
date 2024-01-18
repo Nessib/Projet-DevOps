@@ -36,13 +36,7 @@ pipeline {
             steps {
                 echo 'Étape de configuration de la qualité de service'
             }
-        }
-
-        stage('Service optionnel Snort (IDS)') {
-            steps {
-                echo 'Étape de déploiement du service Snort (IDS)'
-            }
-        }
+       
     }
 
     post {
