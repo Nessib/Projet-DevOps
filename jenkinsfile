@@ -36,8 +36,7 @@ pipeline {
             steps {
                 echo 'Étape de configuration de la qualité de service'
             }
-       
-    }
+        }
 
     post {
         always {
