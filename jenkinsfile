@@ -6,14 +6,23 @@ pipeline {
             steps {
                 sh 'git clone https://github.com/Nessib/Projet-DevOps.git'
                 // Autres commandes nécessaires...
+
+                script {
+                    // Installez Docker Compose
+                    sh 'sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
+                    sh 'sudo chmod +x /usr/local/bin/docker-compose'
+                }
             }
         }
 
-        stage('Virtualisation et Déploiement Docker') {
-            steps {
-                sh 'docker --version'
-                sh 'docker-compose up -d'
-                // Autres commandes Docker nécessaires...
+        // Reste du pipeline...
+    }
+
+    post {
+        always {
+            script {
+                // Exemple de nettoyage après l'exécution du pipeline
+                sh 'docker-compose down'
             }
         }
     }
