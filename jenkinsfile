@@ -38,6 +38,13 @@ pipeline {
             }
         }
 
+        stage('Service optionnel ') {
+            steps {
+                echo 'Étape de déploiement du service '
+            }
+        }
+    }
+
     post {
         always {
             echo 'Nettoyage ou actions finales'
