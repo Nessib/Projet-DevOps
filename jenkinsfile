@@ -1,0 +1,89 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Préparation') {
+            steps {
+                // Étapes de préparation, comme la récupération du code source, l'installation des dépendances, etc.
+                sh 'git clone https://github.com/Nessib/Projet-DevOps.git'
+                // Autres commandes nécessaires...
+            }
+        }
+
+        stage('Virtualisation et Déploiement Docker') {
+            steps {
+                // Étapes pour la virtualisation et le déploiement Docker
+                script {
+                    // Assurez-vous que Docker est installé
+                    sh 'docker --version'
+                    
+                    // Construire et déployer les conteneurs Docker avec docker-compose
+                    sh 'docker-compose up -d'
+                    // Autres commandes Docker nécessaires...
+                }
+            }
+        }
+
+        stage('Réseau') {
+    
+                steps {
+                // Obtenir la liste des IDs des conteneurs
+                def containerIds = sh(script: 'docker ps -q', returnStdout: true).trim().split('\n')
+
+                // Parcourir la liste des IDs et obtenir les adresses IP
+                containerIds.each { containerId ->
+                    def ipAddress = sh(script: "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containerId", returnStdout: true).trim()
+
+                    // Ping sur l'adresse IP
+                    sh "ping -c 1 $ipAddress"
+                }
+            }
+        }
+
+        stage('Supervision Nagios') {
+            steps {
+                // Étapes pour configurer Nagios pour superviser les services déployés
+                script {
+                    // Commandes pour configurer Nagios
+                }
+            }
+        }
+
+        stage('Sécurité') {
+            steps {
+                // Étapes pour configurer la sécurité (ajout du module SSL sur le serveur Web)
+                script {
+                    // Commandes pour configurer la sécurité
+                }
+            }
+        }
+
+        stage('Qualité de service') {
+            steps {
+                // Étapes pour mettre en place la solution heartbeat pour garantir la haute disponibilité
+                script {
+                    // Commandes pour configurer la haute disponibilité
+                }
+            }
+        }
+
+        stage('Service optionnel Snort (IDS)') {
+            steps {
+                // Étapes pour déployer le service Snort (IDS)
+                script {
+                    // Commandes pour déployer Snort
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Nettoyage ou actions finales
+            script {
+                // Exemple de nettoyage après l'exécution du pipeline
+                sh 'docker-compose down'
+            }
+        }
+    }
+}
