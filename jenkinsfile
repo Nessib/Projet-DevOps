@@ -28,6 +28,7 @@ pipeline {
 
                     containerIds.each { containerId ->
                         def ipAddress = sh(script: "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containerId", returnStdout: true).trim()
+
                         sh "ping -c 1 $ipAddress"
                     }
                 }
