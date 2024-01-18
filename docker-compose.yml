@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  nagios:
+    image: jasonrivers/nagios:latest
+    ports:
+      - "8080:80"
+    environment:
+      - NAGIOSADMIN_USER=admin
+      - NAGIOSADMIN_PASS=adminpass
+    volumes:
+      - ./nagios/etc:/opt/nagios/etc
+    depends_on:
+      - web_server
+      - database
+      - ftp_server
+      - hadoop_node
+
+  database:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbpass
+
+  web_server:
+    image: nginx:latest
+    ports:
+      - "8090:80"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+    depends_on:
+      - database
+
+  ftp_server:
+    image: fauria/vsftpd:latest
+    ports:
+      - "21:21"
+    environment:
+      - FTP_USER=myuser
+      - FTP_PASS=mypassword
+    volumes:
+      - ./vsftpd/data:/home/vsftpd/myuser
+    depends_on:
+      - web_server
+
+  hadoop_node:
+    image: sequenceiq/hadoop-docker:latest
+    ports:
+      - "50070:50070"
+    command: /etc/bootstrap.sh -d
+    depends_on:
+      - ftp_server
