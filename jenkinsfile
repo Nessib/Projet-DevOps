@@ -38,9 +38,9 @@ pipeline {
             }
         }
 
-        stage('Service optionnel ') {
+        stage('Service optionnel Snort (IDS)') {
             steps {
-                echo 'Étape de déploiement du service '
+                echo 'Étape de déploiement du service Snort (IDS)'
             }
         }
     }
