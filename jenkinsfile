@@ -17,10 +17,6 @@ pipeline {
             }
         }
 
-    
-            }
-        }
-
         stage('Supervision Nagios') {
             steps {
                 // Étapes pour configurer Nagios pour superviser les services déployés
