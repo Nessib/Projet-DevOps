@@ -16,56 +16,5 @@ pipeline {
                 // Autres commandes Docker nécessaires...
             }
         }
-
-        stage('Réseau') {
-            steps {
-               sh 'ping 8.8.8.8'
-                }
-            }
-        }
-
-        stage('Supervision Nagios') {
-            steps {
-                // Étapes pour configurer Nagios pour superviser les services déployés
-                // Commandes pour configurer Nagios
-            }
-        }
-
-        stage('Configuration Nagios') {
-            steps {
-                // Appel du script shell de configuration Nagios
-                // Assurez-vous que le script est exécutable
-                sh './configure_nagios.sh'
-            }
-        }
-
-        stage('Sécurité') {
-            steps {
-                // Étapes pour configurer la sécurité (ajout du module SSL sur le serveur Web)
-                // Commandes pour configurer la sécurité
-            }
-        }
-
-        stage('Qualité de service') {
-            steps {
-                // Étapes pour mettre en place la solution heartbeat pour garantir la haute disponibilité
-                // Commandes pour configurer la haute disponibilité
-            }
-        }
-
-        stage('Service optionnel Snort (IDS)') {
-            steps {
-                // Étapes pour déployer le service Snort (IDS)
-                // Commandes pour déployer Snort
-            }
-        }
-    }
-
-    post {
-        always {
-            // Nettoyage ou actions finales
-            // Exemple de nettoyage après l'exécution du pipeline
-            sh 'docker-compose down'
-        }
     }
 }
