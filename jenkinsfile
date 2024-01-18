@@ -4,61 +4,50 @@ pipeline {
     stages {
         stage('Préparation') {
             steps {
-                sh 'git clone https://github.com/Nessib/Projet-DevOps.git'
-                // Autres commandes nécessaires...
+                echo 'Étape de préparation'
             }
         }
 
         stage('Virtualisation et Déploiement Docker') {
             steps {
-                sh 'docker --version'
-                sh 'docker-compose up -d'
-                // Autres commandes Docker nécessaires...
+                echo 'Étape de virtualisation et déploiement Docker'
             }
         }
 
         stage('Supervision Nagios') {
             steps {
-                // Étapes pour configurer Nagios pour superviser les services déployés
-                // Commandes pour configurer Nagios
+                echo 'Étape de supervision Nagios'
             }
         }
 
         stage('Configuration Nagios') {
             steps {
-                // Appel du script shell de configuration Nagios
-                // Assurez-vous que le script est exécutable
-                sh './configure_nagios.sh'
+                echo 'Étape de configuration Nagios'
             }
         }
 
         stage('Sécurité') {
             steps {
-                // Étapes pour configurer la sécurité (ajout du module SSL sur le serveur Web)
-                // Commandes pour configurer la sécurité
+                echo 'Étape de configuration de la sécurité'
             }
         }
 
         stage('Qualité de service') {
             steps {
-                // Étapes pour mettre en place la solution heartbeat pour garantir la haute disponibilité
-                // Commandes pour configurer la haute disponibilité
+                echo 'Étape de configuration de la qualité de service'
             }
         }
 
         stage('Service optionnel Snort (IDS)') {
             steps {
-                // Étapes pour déployer le service Snort (IDS)
-                // Commandes pour déployer Snort
+                echo 'Étape de déploiement du service Snort (IDS)'
             }
         }
     }
 
     post {
         always {
-            // Nettoyage ou actions finales
-            // Exemple de nettoyage après l'exécution du pipeline
-            sh 'docker-compose down'
+            echo 'Nettoyage ou actions finales'
         }
     }
 }
