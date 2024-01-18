@@ -19,7 +19,7 @@ pipeline {
 
         stage('Réseau') {
             steps {
-                ping 8.8.8.8
+               sh 'ping 8.8.8.8'
                 }
             }
         }
