@@ -12,7 +12,6 @@ pipeline {
 
         stage('Virtualisation et Déploiement Docker') {
             steps {
-                // Étapes pour la virtualisation et le déploiement Docker
                 script {
                     // Assurez-vous que Docker est installé
                     sh 'docker --version'
@@ -25,8 +24,7 @@ pipeline {
         }
 
         stage('Réseau') {
-    
-                steps {
+            steps {
                 // Obtenir la liste des IDs des conteneurs
                 def containerIds = sh(script: 'docker ps -q', returnStdout: true).trim().split('\n')
 
