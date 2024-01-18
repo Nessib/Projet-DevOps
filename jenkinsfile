@@ -47,6 +47,16 @@ pipeline {
             }
         }
 
+        stage('Configuration Nagios') {
+            steps {
+                script {
+                    // Appel du script shell de configuration Nagios
+                    sh 'chmod +x configure_nagios.sh'  // Assurez-vous que le script est exécutable
+                    sh './configure_nagios.sh'
+                }
+            }
+        }
+
         stage('Sécurité') {
             steps {
                 // Étapes pour configurer la sécurité (ajout du module SSL sur le serveur Web)
