@@ -35,7 +35,6 @@ Tester l'accessibilité entre les serveurs et Nagios : tous les serveurs doivent
 Nagios.
 
 Automatisation et Orchestration dans le cloud
-Dr Abir KHALDI 2023-2024
 
 2
 
